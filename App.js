@@ -15,6 +15,7 @@ import styles from "./styles";
 export default class App extends Component {
   state = {
     newTodo: "",
+    shouldScroll: true,
     todos: [],
   };
 
@@ -72,7 +73,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { newTodo, todos } = this.state;
+    const { newTodo, todos, shouldScroll } = this.state;
 
     return (
       <View style={styles.container}>
@@ -121,7 +122,16 @@ export default class App extends Component {
             />
           </View>
         </SafeAreaView>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+        <KeyboardAwareScrollView
+          enableAutomaticScroll={shouldScroll}
+          keyboardShouldPersistTaps="handled"
+          onKeyboardDidShow={() => {
+            this.setState({ shouldScroll: false });
+          }}
+          onKeyboardWillHide={() => {
+            this.setState({ shouldScroll: true });
+          }}
+        >
           <TodoList
             todos={todos}
             editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
