@@ -34,7 +34,9 @@ export default class TodoInput extends Component {
     const { todo } = this.props;
     return (
       <TextInput
+        scrollEnabled={false}
         multiline={true}
+        blurOnSubmit={true}
         returnKeyType="done"
         onChangeText={(str) => {
           this.setState({ msg: str });
@@ -44,7 +46,11 @@ export default class TodoInput extends Component {
         }}
         value={msg}
         style={[
-          { flexShrink: 1, paddingTop: 0 },
+          {
+            flexShrink: 1,
+            paddingTop: 0,
+            paddingBottom: 0,
+          },
           styles.line,
           todo.done
             ? {

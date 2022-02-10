@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import TodoList from "./components/TodoList";
 import Button from "./components/Button";
@@ -24,6 +25,8 @@ export default class App extends Component {
   }
 
   addTodo(todo) {
+    if (!todo) return;
+
     this.setState(({ todos }) => {
       return {
         todos: [
@@ -118,11 +121,13 @@ export default class App extends Component {
           </View>
         </SafeAreaView>
         <ScrollView>
-          <TodoList
-            todos={todos}
-            editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
-            removeTodo={(id) => this.removeTodo(id)}
-          />
+          <KeyboardAvoidingView behavior="padding">
+            <TodoList
+              todos={todos}
+              editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
+              removeTodo={(id) => this.removeTodo(id)}
+            />
+          </KeyboardAvoidingView>
         </ScrollView>
       </View>
     );
