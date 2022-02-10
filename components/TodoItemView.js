@@ -16,7 +16,7 @@ const style = StyleSheet.create({
 
 export default function TodoItemView({ todo, editTodo, removeTodo }) {
   return (
-    <View style={[styles.vMarginX, styles.hMargin, style.container]}>
+    <View style={[styles.vMargin, styles.hMargin, style.container]}>
       <Toggle
         isSet={todo.done}
         setStatus={(status) => {

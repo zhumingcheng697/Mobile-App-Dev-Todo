@@ -7,7 +7,7 @@ const style = StyleSheet.create({
     height: 24,
     borderRadius: 24,
     borderWidth: 2,
-    marginEnd: 10,
+    marginEnd: 5,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

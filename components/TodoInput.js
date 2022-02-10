@@ -48,8 +48,10 @@ export default class TodoInput extends Component {
         style={[
           {
             flexShrink: 1,
-            paddingTop: 0,
-            paddingBottom: 0,
+            paddingTop: 5,
+            paddingBottom: 5,
+            paddingStart: 5,
+            paddingEnd: 20,
           },
           styles.line,
           todo.done

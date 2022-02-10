@@ -25,12 +25,6 @@ export default StyleSheet.create({
   vMargin: {
     marginVertical: 5,
   },
-  vMarginX: {
-    marginVertical: 8,
-  },
-  vMarginXX: {
-    marginVertical: 12,
-  },
   hMargin: {
     marginHorizontal: 20,
   },

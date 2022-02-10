@@ -28,7 +28,11 @@ export default function Button({
           styles.line,
           destructive ? buttonStyle.destructive : buttonStyle.regular,
           disabled ? buttonStyle.disabled : null,
-          { textAlign: "center" },
+          {
+            textAlign: "center",
+            paddingVertical: 5,
+            paddingHorizontal: 10,
+          },
         ]}
       >
         {title || "Button"}

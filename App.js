@@ -92,7 +92,7 @@ export default class App extends Component {
           />
           <View
             style={[
-              styles.vMarginXX,
+              styles.vMargin,
               styles.hMargin,
               {
                 direction: "flex",
@@ -103,7 +103,7 @@ export default class App extends Component {
             ]}
           >
             <Button
-              style={{ flex: 1 }}
+              style={{ flexGrow: 0, flexShrink: 1 }}
               title="Add"
               disabled={!newTodo}
               onPress={() => {
@@ -112,7 +112,7 @@ export default class App extends Component {
               }}
             />
             <Button
-              style={{ flex: 1 }}
+              style={{ flexGrow: 0, flexShrink: 1 }}
               title="Clear"
               destructive
               disabled={!todos.length}
