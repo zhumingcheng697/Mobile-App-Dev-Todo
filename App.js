@@ -6,8 +6,8 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  KeyboardAvoidingView,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TodoList from "./components/TodoList";
 import Button from "./components/Button";
 import styles from "./styles";
@@ -82,6 +82,7 @@ export default class App extends Component {
             returnKeyType="done"
             style={[styles.input, styles.vMargin, styles.hMargin]}
             value={newTodo}
+            blurOnSubmit={newTodo == ""}
             onChangeText={(txt) => this.updateNewTodo(txt)}
             onSubmitEditing={() => {
               this.addTodo(newTodo);
@@ -120,15 +121,13 @@ export default class App extends Component {
             />
           </View>
         </SafeAreaView>
-        <ScrollView>
-          <KeyboardAvoidingView behavior="padding">
-            <TodoList
-              todos={todos}
-              editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
-              removeTodo={(id) => this.removeTodo(id)}
-            />
-          </KeyboardAvoidingView>
-        </ScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+          <TodoList
+            todos={todos}
+            editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
+            removeTodo={(id) => this.removeTodo(id)}
+          />
+        </KeyboardAwareScrollView>
       </View>
     );
   }
