@@ -5,7 +5,7 @@ import styles from "../styles";
 
 export default function TodoList({ todos, editTodo, removeTodo }) {
   return (
-    <View style={styles.vMargin}>
+    <View style={{ marginBottom: 10 }}>
       {todos.map((todo) => (
         <TodoItemView
           key={todo.id}

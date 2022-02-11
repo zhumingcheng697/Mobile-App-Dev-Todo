@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { Text, TextInput, View, SafeAreaView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TodoList from "./components/TodoList";
 import Button from "./components/Button";
@@ -15,7 +8,6 @@ import styles from "./styles";
 export default class App extends Component {
   state = {
     newTodo: "",
-    shouldScroll: true,
     todos: [],
   };
 
@@ -73,7 +65,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { newTodo, todos, shouldScroll } = this.state;
+    const { newTodo, todos } = this.state;
 
     return (
       <View style={styles.container}>
@@ -122,16 +114,7 @@ export default class App extends Component {
             />
           </View>
         </SafeAreaView>
-        <KeyboardAwareScrollView
-          enableAutomaticScroll={shouldScroll}
-          keyboardShouldPersistTaps="handled"
-          onKeyboardDidShow={() => {
-            this.setState({ shouldScroll: false });
-          }}
-          onKeyboardWillHide={() => {
-            this.setState({ shouldScroll: true });
-          }}
-        >
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <TodoList
             todos={todos}
             editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
