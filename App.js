@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { StatusBar } from "expo-status-bar";
 import { Text, TextInput, View, SafeAreaView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TodoList from "./components/TodoList";
@@ -69,6 +70,7 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
+        <StatusBar style="dark" />
         <SafeAreaView>
           <Text style={[styles.header, styles.vMargin]}>To-Do List</Text>
           <TextInput
