@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 
-const style = StyleSheet.create({
+const toggleStyle = StyleSheet.create({
   base: {
     width: 24,
     height: 24,
@@ -29,8 +29,13 @@ export default function Toggle({ isSet, setStatus, style }) {
   return (
     <View style={style}>
       <TouchableOpacity onPress={() => setStatus(!isSet)}>
-        <View style={[style.base, isSet ? style.set : style.unset]}>
-          {isSet && <View style={style.inner}></View>}
+        <View
+          style={[
+            toggleStyle.base,
+            isSet ? toggleStyle.set : toggleStyle.unset,
+          ]}
+        >
+          {isSet && <View style={toggleStyle.inner}></View>}
         </View>
       </TouchableOpacity>
     </View>
