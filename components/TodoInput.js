@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { TextInput } from "react-native";
-import styles from "../styles";
+import styles from "../shared/styles";
 
 export default class TodoInput extends Component {
   state = {

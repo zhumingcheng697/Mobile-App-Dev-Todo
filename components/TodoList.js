@@ -1,7 +1,6 @@
 import React from "react";
 import { View } from "react-native";
 import TodoItemView from "./TodoItemView";
-import styles from "../styles";
 
 export default function TodoList({ todos, editTodo, removeTodo }) {
   return (

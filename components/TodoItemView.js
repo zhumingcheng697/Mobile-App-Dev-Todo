@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import styles from "../styles";
+import styles from "../shared/styles";
 import Toggle from "./Toggle";
 import TodoInput from "./TodoInput";
 
