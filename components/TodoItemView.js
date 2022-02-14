@@ -18,6 +18,7 @@ export default function TodoItemView({ todo, editTodo, removeTodo }) {
   return (
     <View style={[styles.vMargin, styles.hMargin, style.container]}>
       <Toggle
+        style={{ marginEnd: 5 }}
         isSet={todo.done}
         setStatus={(status) => {
           editTodo(Object.assign({}, todo, { done: status }));

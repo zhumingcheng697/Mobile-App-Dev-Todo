@@ -7,7 +7,6 @@ const style = StyleSheet.create({
     height: 24,
     borderRadius: 24,
     borderWidth: 2,
-    marginEnd: 5,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -26,12 +25,14 @@ const style = StyleSheet.create({
   },
 });
 
-export default function Toggle({ isSet, setStatus }) {
+export default function Toggle({ isSet, setStatus, style }) {
   return (
-    <TouchableOpacity onPress={() => setStatus(!isSet)}>
-      <View style={[style.base, isSet ? style.set : style.unset]}>
-        {isSet && <View style={style.inner}></View>}
-      </View>
-    </TouchableOpacity>
+    <View style={style}>
+      <TouchableOpacity onPress={() => setStatus(!isSet)}>
+        <View style={[style.base, isSet ? style.set : style.unset]}>
+          {isSet && <View style={style.inner}></View>}
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
