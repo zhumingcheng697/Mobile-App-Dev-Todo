@@ -1,34 +1,20 @@
 import React, { Component } from "react";
-import { StatusBar } from "expo-status-bar";
-import { Text, TextInput, View, SafeAreaView } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { randomNumber } from "./shared/util";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./screens/Home";
-import TodoList from "./components/TodoList";
-import Button from "./components/Button";
-import styles from "./shared/styles";
 
 export default class App extends Component {
   state = {
     todos: [],
   };
 
-  randomNumber(n, base = 10) {
-    return [...Array(n)]
-      .map(() => Math.floor(Math.random() * base).toString(base))
-      .join("");
-  }
-
   addTodo(todo) {
     if (!todo) return;
 
     this.setState(({ todos }) => {
       return {
-        todos: [
-          { msg: todo, done: false, id: this.randomNumber(8, 16) },
-          ...todos,
-        ],
+        todos: [{ msg: todo, done: false, id: randomNumber(8, 16) }, ...todos],
       };
     });
   }
@@ -68,7 +54,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { newTodo, todos } = this.state;
+    const { todos } = this.state;
 
     return (
       <Home
