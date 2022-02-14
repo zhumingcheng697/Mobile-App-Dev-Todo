@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, TextInput, View, SafeAreaView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "./screens/Home";
 import TodoList from "./components/TodoList";
 import Button from "./components/Button";
-import styles from "./styles";
+import styles from "./shared/styles";
 
 export default class App extends Component {
   state = {
-    newTodo: "",
     todos: [],
   };
 
@@ -61,69 +63,21 @@ export default class App extends Component {
     });
   }
 
-  updateNewTodo(newTodo) {
-    this.setState({ newTodo });
+  clearTodos() {
+    this.setState({ todos: [] });
   }
 
   render() {
     const { newTodo, todos } = this.state;
 
     return (
-      <View style={styles.container}>
-        <StatusBar style="dark" />
-        <SafeAreaView>
-          <Text style={[styles.header, styles.vMargin]}>To-Do List</Text>
-          <TextInput
-            returnKeyType="done"
-            style={[styles.input, styles.vMargin, styles.hMargin]}
-            value={newTodo}
-            blurOnSubmit={newTodo == ""}
-            onChangeText={(txt) => this.updateNewTodo(txt)}
-            onSubmitEditing={() => {
-              this.addTodo(newTodo);
-              this.updateNewTodo("");
-            }}
-          />
-          <View
-            style={[
-              styles.vMargin,
-              styles.hMargin,
-              {
-                direction: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-              },
-            ]}
-          >
-            <Button
-              style={{ flexGrow: 0, flexShrink: 1 }}
-              title="Add"
-              disabled={!newTodo}
-              onPress={() => {
-                this.addTodo(newTodo);
-                this.updateNewTodo("");
-              }}
-            />
-            <Button
-              style={{ flexGrow: 0, flexShrink: 1 }}
-              title="Clear"
-              destructive
-              disabled={!todos.length}
-              onPress={() => {
-                this.setState({ todos: [] });
-              }}
-            />
-          </View>
-        </SafeAreaView>
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-          <TodoList
-            todos={todos}
-            editTodo={(id, newTodo) => this.editTodo(id, newTodo)}
-            removeTodo={(id) => this.removeTodo(id)}
-          />
-        </KeyboardAwareScrollView>
-      </View>
+      <Home
+        todos={todos}
+        addTodo={this.addTodo.bind(this)}
+        editTodo={this.editTodo.bind(this)}
+        removeTodo={this.removeTodo.bind(this)}
+        clearTodos={this.clearTodos.bind(this)}
+      />
     );
   }
 }
