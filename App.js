@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./screens/Home";
 
+const Stack = createStackNavigator();
+
 export default class App extends Component {
   state = {
     todos: [],
@@ -57,13 +59,22 @@ export default class App extends Component {
     const { todos } = this.state;
 
     return (
-      <Home
-        todos={todos}
-        addTodo={this.addTodo.bind(this)}
-        editTodo={this.editTodo.bind(this)}
-        removeTodo={this.removeTodo.bind(this)}
-        clearTodos={this.clearTodos.bind(this)}
-      />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" options={{ title: "To-Do List" }}>
+            {(props) => (
+              <Home
+                {...props}
+                todos={todos}
+                addTodo={this.addTodo.bind(this)}
+                editTodo={this.editTodo.bind(this)}
+                removeTodo={this.removeTodo.bind(this)}
+                clearTodos={this.clearTodos.bind(this)}
+              />
+            )}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
