@@ -17,14 +17,12 @@ export default class Home extends Component {
 
   render() {
     const { newTodo } = this.state;
-    const { todos, addTodo, editTodo, removeTodo, updateNewTodo, clearTodos } =
-      this.props;
+    const { todos, addTodo, editTodo, removeTodo, clearTodos } = this.props;
 
     return (
       <View style={styles.container}>
         <StatusBar style="dark" />
         <SafeAreaView>
-          <Text style={[styles.header, styles.vMargin]}>To-Do List</Text>
           <TextInput
             returnKeyType="done"
             style={[styles.input, styles.vMargin, styles.hMargin]}
@@ -54,7 +52,7 @@ export default class Home extends Component {
               disabled={!newTodo}
               onPress={() => {
                 addTodo(newTodo);
-                updateNewTodo("");
+                this.updateNewTodo("");
               }}
             />
             <Button
@@ -62,9 +60,7 @@ export default class Home extends Component {
               title="Clear"
               destructive
               disabled={!todos.length}
-              onPress={() => {
-                clearTodos();
-              }}
+              onPress={clearTodos}
             />
           </View>
         </SafeAreaView>
