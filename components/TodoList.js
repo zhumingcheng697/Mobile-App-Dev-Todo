@@ -1,12 +1,12 @@
 import React from "react";
 import { View } from "react-native";
-import TodoItemView from "./TodoItemView";
+import TodoItem from "./TodoItem";
 
 export default function TodoList({ todos, editTodo, removeTodo }) {
   return (
     <View style={{ marginBottom: 10 }}>
       {todos.map((todo) => (
-        <TodoItemView
+        <TodoItem
           key={todo.id}
           todo={todo}
           editTodo={(newTodo) => {

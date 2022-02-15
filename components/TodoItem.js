@@ -14,7 +14,7 @@ const style = StyleSheet.create({
   },
 });
 
-export default function TodoItemView({ todo, editTodo, removeTodo }) {
+export default function TodoItem({ todo, editTodo, removeTodo }) {
   return (
     <View style={[styles.vMargin, styles.hMargin, style.container]}>
       <Toggle
