@@ -74,7 +74,7 @@ export default class HomeScreen extends Component {
 
   render() {
     const { todos } = this.state;
-    const { requireBody } = this.props;
+    const { defaultPriority, rememberPriority, requireBody } = this.props;
 
     return (
       <Stack.Navigator>
@@ -83,6 +83,8 @@ export default class HomeScreen extends Component {
             <TodoScreen
               {...props}
               todos={todos}
+              defaultPriority={defaultPriority}
+              rememberPriority={rememberPriority}
               requireBody={requireBody}
               addTodo={this.addTodo.bind(this)}
               editTodo={this.editTodo.bind(this)}

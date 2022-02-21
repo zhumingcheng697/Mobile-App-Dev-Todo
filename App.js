@@ -9,14 +9,26 @@ import AccountScreen from "./screens/AccountScreen";
 const Tab = createBottomTabNavigator();
 
 export default class App extends Component {
-  state = { requireBody: false };
+  state = {
+    defaultPriority: null,
+    rememberPriority: false,
+    requireBody: false,
+  };
+
+  setDefaultPriority(defaultPriority) {
+    this.setState({ defaultPriority });
+  }
+
+  setRememberPriority(rememberPriority) {
+    this.setState({ rememberPriority });
+  }
 
   setRequireBody(requireBody) {
     this.setState({ requireBody });
   }
 
   render() {
-    const { requireBody } = this.state;
+    const { defaultPriority, rememberPriority, requireBody } = this.state;
 
     return (
       <NavigationContainer>
@@ -37,13 +49,24 @@ export default class App extends Component {
             name="To-Do List"
             options={{ headerShown: false, title: "To-Dos" }}
           >
-            {(props) => <HomeScreen {...props} requireBody={requireBody} />}
+            {(props) => (
+              <HomeScreen
+                {...props}
+                defaultPriority={defaultPriority}
+                rememberPriority={rememberPriority}
+                requireBody={requireBody}
+              />
+            )}
           </Tab.Screen>
           <Tab.Screen name="Account" options={{ title: "Account" }}>
             {(props) => (
               <AccountScreen
                 {...props}
+                defaultPriority={defaultPriority}
+                rememberPriority={rememberPriority}
                 requireBody={requireBody}
+                setDefaultPriority={this.setDefaultPriority.bind(this)}
+                setRememberPriority={this.setRememberPriority.bind(this)}
                 setRequireBody={this.setRequireBody.bind(this)}
               />
             )}

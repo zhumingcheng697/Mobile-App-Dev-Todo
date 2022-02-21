@@ -29,36 +29,54 @@ export default class TodoScreen extends Component {
     this.setState({ newPriority });
   }
 
+  resetFields() {
+    const { rememberPriority, defaultPriority } = this.props;
+    this.updateTitle("");
+    this.updateBody("");
+
+    if (!rememberPriority) {
+      this.updatePriority(defaultPriority);
+    }
+  }
+
   render() {
     const { newTitle, newBody, newPriority } = this.state;
-    const { navigation, requireBody, todos, addTodo, editTodo, clearTodos } =
-      this.props;
+    const {
+      navigation,
+      defaultPriority,
+      requireBody,
+      todos,
+      addTodo,
+      editTodo,
+      clearTodos,
+    } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar style="dark" />
         <View style={[styles.hMargin, styles.topMargin]}>
-          <Text style={[styles.topMarginX, styles.line]}>Title:</Text>
+          <Text style={[styles.topMargin, styles.line]}>Title:</Text>
           <TextInput
             style={[styles.input, styles.vMargin]}
             value={newTitle}
             onChangeText={this.updateTitle.bind(this)}
           />
-          <Text style={[styles.topMarginX, styles.line]}>Body:</Text>
+          <Text style={[styles.topMargin, styles.line]}>Body:</Text>
           <TextInput
-            style={[styles.textarea, styles.bottomMarginX]}
+            style={[styles.textarea, styles.vMargin]}
             value={newBody}
             blurOnSubmit={true}
             onChangeText={this.updateBody.bind(this)}
             multiline={true}
-            placeholder={requireBody ? undefined : "Optional"}
+            placeholder={requireBody ? null : "Optional"}
           />
-          <Text style={[styles.topMarginX, styles.line]}>Priority:</Text>
+          <Text style={[styles.topMargin, styles.line]}>Priority:</Text>
           <Selector
             style={styles.bottomMarginX}
             options={["!!!", "!!", "!"]}
-            selected={newPriority}
-            setSelected={this.updatePriority.bind(this)}
+            initialValue={defaultPriority}
+            value={newPriority}
+            setValue={this.updatePriority.bind(this)}
           />
           <Button
             style={[styles.topMarginX, { flexGrow: 0, flexShrink: 1 }]}
@@ -66,8 +84,7 @@ export default class TodoScreen extends Component {
             disabled={!newTitle || (!newBody && requireBody)}
             onPress={() => {
               if (addTodo(newTitle, newBody, newPriority)) {
-                this.updateTitle("");
-                this.updateBody("");
+                this.resetFields();
               }
             }}
           />

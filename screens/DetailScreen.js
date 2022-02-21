@@ -111,8 +111,8 @@ export default class DetailScreen extends Component {
           <Selector
             style={styles.vMarginX}
             options={["!!!", "!!", "!"]}
-            selected={todo.priority}
-            setSelected={this.updatePriority.bind(this)}
+            value={todo.priority}
+            setValue={this.updatePriority.bind(this)}
           />
           <Button
             style={styles.topMarginX}

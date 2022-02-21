@@ -6,21 +6,30 @@ import Button from "./Button";
 import { spreadStyle } from "../shared/util";
 
 export default class Selector extends Component {
-  updateSelected(newSelected) {
-    const { selected, setSelected, required } = this.props;
+  componentDidUpdate({ initialValue: pInitialValue }) {
+    const { initialValue, value, required } = this.props;
 
     if (
-      !required &&
-      ((!selected && !newSelected) || selected === newSelected)
+      pInitialValue !== initialValue &&
+      value !== initialValue &&
+      (!required || !!initialValue)
     ) {
-      setSelected(null);
+      this.updateValue(initialValue);
+    }
+  }
+
+  updateValue(newSelected) {
+    const { value, setValue, required } = this.props;
+
+    if (!required && ((!value && !newSelected) || value === newSelected)) {
+      setValue(null);
     } else {
-      setSelected(newSelected);
+      setValue(newSelected);
     }
   }
 
   render() {
-    const { options, selected, style } = this.props;
+    const { options, value, style } = this.props;
 
     return (
       <View
@@ -32,9 +41,9 @@ export default class Selector extends Component {
       >
         {options.map((option, index) => (
           <Button
-            onPress={() => this.updateSelected(option)}
+            onPress={() => this.updateValue(option)}
             key={`${option}-${index}`}
-            highlighted={option === selected}
+            highlighted={option === value}
             style={[
               { flexGrow: 1, flexBasis: 1 },
               index === 0
