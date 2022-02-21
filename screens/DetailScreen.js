@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, TextInput, View, SafeAreaView } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
+
 import { dateToString } from "../shared/util";
 import Button from "../components/Button";
 import styles from "../shared/styles";

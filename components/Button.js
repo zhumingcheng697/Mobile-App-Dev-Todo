@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+
 import styles from "../shared/styles";
 
 const buttonView = StyleSheet.create({

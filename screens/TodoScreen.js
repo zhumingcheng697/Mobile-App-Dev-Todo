@@ -38,11 +38,12 @@ export default class TodoScreen extends Component {
           <TextInput
             style={[styles.textarea, styles.bottomMarginX]}
             value={newBody}
+            blurOnSubmit={true}
             onChangeText={this.updateBody.bind(this)}
             multiline={true}
           />
           <Button
-            style={[styles.topMarginX, { flexGrow: 0, flexShrink: 1 }]}
+            style={[styles.vMargin, { flexGrow: 0, flexShrink: 1 }]}
             title="Add"
             disabled={!newTitle || !newBody}
             onPress={() => {

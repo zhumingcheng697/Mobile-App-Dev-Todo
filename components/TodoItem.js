@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 import styles from "../shared/styles";
 import Toggle from "./Toggle";
 
