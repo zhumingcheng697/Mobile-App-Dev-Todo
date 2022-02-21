@@ -5,22 +5,13 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "../shared/styles";
 import Toggle from "./Toggle";
 
-const style = StyleSheet.create({
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    alignContent: "center",
-  },
-});
-
 export default function TodoItem({ todo, editTodo, navigation }) {
   return (
     <View
       style={[
         styles.vMargin,
         styles.hMargin,
-        style.container,
+        styles.flexRow,
         { justifyContent: "flex-start" },
       ]}
     >
@@ -35,7 +26,7 @@ export default function TodoItem({ todo, editTodo, navigation }) {
         onPress={() => navigation.navigate("To-Do Detail", { todo })}
         style={[
           styles.vMargin,
-          style.container,
+          styles.flexRow,
           {
             flexShrink: 1,
             paddingStart: 5,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, TextInput, View, SafeAreaView, ScrollView } from "react-native";
+import { Text, TextInput, View, SafeAreaView, Switch } from "react-native";
 
 import styles from "../shared/styles";
 
@@ -25,6 +25,7 @@ export default class AccountScreen extends Component {
 
   render() {
     const { username, email, number } = this.state;
+    const { requireBody, setRequireBody } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -51,6 +52,16 @@ export default class AccountScreen extends Component {
             keyboardType={"phone-pad"}
             onChangeText={this.updateNumber.bind(this)}
           />
+          <View
+            style={[
+              styles.flexRow,
+              styles.topMarginX,
+              { justifyContent: "space-between" },
+            ]}
+          >
+            <Text style={styles.line}>Require To-Do Body</Text>
+            <Switch value={requireBody} onValueChange={setRequireBody} />
+          </View>
         </View>
       </SafeAreaView>
     );

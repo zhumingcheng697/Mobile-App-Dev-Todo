@@ -67,15 +67,17 @@ export default class DetailScreen extends Component {
           >
             {todo.title}
           </Text>
-          <Text
-            style={[
-              styles.line,
-              styles.vMarginX,
-              todo.finishedAt ? styles.finishedStyle : null,
-            ]}
-          >
-            {todo.body}
-          </Text>
+          {!!todo.body && (
+            <Text
+              style={[
+                styles.line,
+                styles.vMarginX,
+                todo.finishedAt ? styles.finishedStyle : null,
+              ]}
+            >
+              {todo.body}
+            </Text>
+          )}
           <Text style={[styles.line, styles.vMarginX]}>
             Added at {dateToString(new Date(todo.createdAt))}
           </Text>

@@ -1,42 +1,55 @@
-import * as React from "react";
+import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import HomeScreen from "./screens/HomeScreen";
 import AccountScreen from "./screens/AccountScreen";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-            if (route.name === "To-Do List") {
-              iconName = "list";
-            } else if (route.name === "Account") {
-              iconName = "person";
-            } else {
-              iconName = "people";
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-      >
-        <Tab.Screen
-          name="To-Do List"
-          component={HomeScreen}
-          options={{ headerShown: false, title: "To-Dos" }}
-        ></Tab.Screen>
-        <Tab.Screen
-          name="Account"
-          component={AccountScreen}
-          options={{ title: "Account" }}
-        ></Tab.Screen>
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+export default class App extends Component {
+  state = { requireBody: false };
+
+  setRequireBody(requireBody) {
+    this.setState({ requireBody });
+  }
+
+  render() {
+    const { requireBody } = this.state;
+
+    return (
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size, focused }) => {
+              let iconName;
+              if (route.name === "To-Do List") {
+                iconName = "list";
+              } else if (route.name === "Account") {
+                iconName = focused ? "person" : "person-outline";
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+        >
+          <Tab.Screen
+            name="To-Do List"
+            options={{ headerShown: false, title: "To-Dos" }}
+          >
+            {(props) => <HomeScreen {...props} requireBody={requireBody} />}
+          </Tab.Screen>
+          <Tab.Screen name="Account" options={{ title: "Account" }}>
+            {(props) => (
+              <AccountScreen
+                {...props}
+                requireBody={requireBody}
+                setRequireBody={this.setRequireBody.bind(this)}
+              />
+            )}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </NavigationContainer>
+    );
+  }
 }

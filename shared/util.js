@@ -17,4 +17,16 @@ function dateToString(
   return date.toLocaleString(undefined, format);
 }
 
-export { randomNumber, dateToString };
+function spreadStyle(style) {
+  if (!style) {
+    return [];
+  }
+
+  if (Array.isArray(style)) {
+    return style;
+  } else {
+    return [style];
+  }
+}
+
+export { randomNumber, dateToString, spreadStyle };

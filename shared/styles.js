@@ -16,6 +16,12 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     height: "100%",
   },
+  flexRow: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "center",
+  },
   header: {
     fontSize: 26,
     fontWeight: "bold",
@@ -25,7 +31,7 @@ export default StyleSheet.create({
     ...baseStyle.input,
   },
   textarea: {
-    height: 100,
+    height: 80,
     ...baseStyle.input,
   },
   line: {

@@ -14,8 +14,10 @@ export default class HomeScreen extends Component {
     todos: [],
   };
 
-  addTodo(title, body) {
-    if (!title || !body) return;
+  addTodo(title, body, priority) {
+    const { requireBody } = this.props;
+
+    if (!title || (!body && requireBody)) return false;
 
     this.setState(({ todos }) => {
       return {
@@ -23,6 +25,7 @@ export default class HomeScreen extends Component {
           {
             title,
             body,
+            priority,
             id: randomNumber(8, 16),
             createdAt: Date.now(),
             finishedAt: null,
@@ -31,6 +34,8 @@ export default class HomeScreen extends Component {
         ],
       };
     });
+
+    return true;
   }
 
   indexOfTodo(id) {
@@ -69,6 +74,7 @@ export default class HomeScreen extends Component {
 
   render() {
     const { todos } = this.state;
+    const { requireBody } = this.props;
 
     return (
       <Stack.Navigator>
@@ -77,6 +83,7 @@ export default class HomeScreen extends Component {
             <TodoScreen
               {...props}
               todos={todos}
+              requireBody={requireBody}
               addTodo={this.addTodo.bind(this)}
               editTodo={this.editTodo.bind(this)}
               clearTodos={this.clearTodos.bind(this)}
