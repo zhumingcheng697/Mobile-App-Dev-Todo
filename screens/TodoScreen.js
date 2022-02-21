@@ -68,6 +68,7 @@ export default class TodoScreen extends Component {
             blurOnSubmit={true}
             onChangeText={this.updateBody.bind(this)}
             multiline={true}
+            key={(requireBody ? "Required" : "Optional") + " newBody"}
             placeholder={requireBody ? null : "Optional"}
           />
           <Text style={[styles.topMargin, styles.line]}>Priority:</Text>
