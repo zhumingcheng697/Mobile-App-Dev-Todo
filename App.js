@@ -1,80 +1,41 @@
-import React, { Component } from "react";
-import { randomNumber } from "./shared/util";
+import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Home from "./screens/Home";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "./screens/HomeScreen";
+import DetailScreen from "./screens/DetailScreen";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default class App extends Component {
-  state = {
-    todos: [],
-  };
-
-  addTodo(todo) {
-    if (!todo) return;
-
-    this.setState(({ todos }) => {
-      return {
-        todos: [{ msg: todo, done: false, id: randomNumber(8, 16) }, ...todos],
-      };
-    });
-  }
-
-  indexOfTodo(id) {
-    const { todos } = this.state;
-
-    return todos.findIndex((todo) => todo.id == id);
-  }
-
-  editTodo(id, newTodo) {
-    const index = this.indexOfTodo(id);
-
-    if (index < 0) return;
-
-    this.setState(({ todos }) => {
-      const newTodos = todos.slice();
-      newTodos[index] = newTodo;
-      return { todos: newTodos };
-    });
-  }
-
-  removeTodo(id) {
-    const index = this.indexOfTodo(id);
-
-    if (index < 0) return;
-
-    this.setState(({ todos }) => {
-      const newTodos = todos.slice();
-      newTodos.splice(index, 1);
-      return { todos: newTodos };
-    });
-  }
-
-  clearTodos() {
-    this.setState({ todos: [] });
-  }
-
-  render() {
-    const { todos } = this.state;
-
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" options={{ title: "To-Do List" }}>
-            {(props) => (
-              <Home
-                {...props}
-                todos={todos}
-                addTodo={this.addTodo.bind(this)}
-                editTodo={this.editTodo.bind(this)}
-                removeTodo={this.removeTodo.bind(this)}
-                clearTodos={this.clearTodos.bind(this)}
-              />
-            )}
-          </Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+            if (route.name === "To-Do List") {
+              iconName = "list";
+            } else if (route.name === "Account") {
+              iconName = "person";
+            } else {
+              iconName = "people";
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen
+          name="To-Do List"
+          component={HomeScreen}
+          options={{ headerShown: false, title: "To-Dos" }}
+        ></Tab.Screen>
+        <Tab.Screen
+          name="Account"
+          component={DetailScreen}
+          options={{ title: "Account" }}
+        ></Tab.Screen>
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
