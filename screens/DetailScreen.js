@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, SafeAreaView } from "react-native";
 
 import { dateToString } from "../shared/util";
+import Selector from "../components/Selector";
 import Button from "../components/Button";
 import styles from "../shared/styles";
 
@@ -18,6 +19,20 @@ export default class DetailScreen extends Component {
     this.editTodo({
       ...todo,
       finishedAt: todo.finishedAt ? null : Date.now(),
+    });
+  }
+
+  updatePriority(newPriority) {
+    const { route } = this.props;
+    const todo = route?.params?.todo;
+
+    if (!todo) {
+      return null;
+    }
+
+    this.editTodo({
+      ...todo,
+      priority: newPriority,
     });
   }
 
@@ -58,15 +73,22 @@ export default class DetailScreen extends Component {
       <SafeAreaView style={styles.container}>
         <StatusBar style="dark" />
         <View style={[styles.hMargin, styles.topMargin]}>
-          <Text
-            style={[
-              styles.header,
-              styles.vMarginX,
-              todo.finishedAt ? styles.finishedStyle : null,
-            ]}
-          >
-            {todo.title}
-          </Text>
+          <View style={[styles.flexRow, styles.vMarginX]}>
+            {!!todo.priority && (
+              <Text style={[styles.header, { paddingEnd: 10, color: "#f90" }]}>
+                {todo.priority}
+              </Text>
+            )}
+            <Text
+              style={[
+                styles.header,
+                { flexShrink: 1, flexGrow: 1 },
+                todo.finishedAt ? styles.finishedStyle : null,
+              ]}
+            >
+              {todo.title}
+            </Text>
+          </View>
           {!!todo.body && (
             <Text
               style={[
@@ -86,6 +108,12 @@ export default class DetailScreen extends Component {
               ? `Finished at ${dateToString(new Date(todo.finishedAt))}`
               : "Pending"}
           </Text>
+          <Selector
+            style={styles.vMarginX}
+            options={["!!!", "!!", "!"]}
+            selected={todo.priority}
+            setSelected={this.updatePriority.bind(this)}
+          />
           <Button
             style={styles.topMarginX}
             title="Delete"

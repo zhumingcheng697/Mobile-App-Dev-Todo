@@ -35,15 +35,22 @@ export default function TodoItem({ todo, editTodo, navigation }) {
         ]}
       >
         <View style={{ flexShrink: 1, flexGrow: 1 }}>
-          <Text
-            style={[
-              styles.line,
-              { paddingEnd: 5 },
-              todo.finishedAt ? styles.finishedStyle : null,
-            ]}
-          >
-            {todo.title}
-          </Text>
+          <View style={[styles.flexRow]}>
+            {!!todo.priority && (
+              <Text style={[styles.line, { paddingEnd: 5, color: "#f90" }]}>
+                {todo.priority}
+              </Text>
+            )}
+            <Text
+              style={[
+                styles.line,
+                { flexShrink: 1, flexGrow: 1, paddingEnd: 5 },
+                todo.finishedAt ? styles.finishedStyle : null,
+              ]}
+            >
+              {todo.title}
+            </Text>
+          </View>
         </View>
         <Ionicons name="chevron-forward" color="darkgray" size={17} />
       </TouchableOpacity>
