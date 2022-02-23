@@ -104,7 +104,7 @@ export default class HomeScreen extends Component {
               }
 
               return (
-                <View style={{ marginRight: 10 }}>
+                <View style={{ marginRight: 15 }}>
                   <Toggle
                     isSet={!!todo.finishedAt}
                     setStatus={(status) => {
