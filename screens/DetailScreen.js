@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { dateToString } from "../shared/util";
 import { editTodo, removeTodo } from "../redux/actions";
@@ -10,11 +10,12 @@ import Selector from "../components/Selector";
 import Button from "../components/Button";
 import styles from "../shared/styles";
 
-export default function DetailScreen({ route }) {
+export default function DetailScreen() {
   let shouldDelete = false;
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
   const navigation = useNavigation();
+  const route = useRoute();
 
   useEffect(() => {
     return () => {
