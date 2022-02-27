@@ -1,36 +1,20 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import reducer from "./redux/reducers";
 import HomeScreen from "./screens/HomeScreen";
 import AccountScreen from "./screens/AccountScreen";
 
+const store = createStore(reducer);
 const Tab = createBottomTabNavigator();
 
-export default class App extends Component {
-  state = {
-    defaultPriority: null,
-    rememberPriority: false,
-    requireBody: false,
-  };
-
-  setDefaultPriority(defaultPriority) {
-    this.setState({ defaultPriority });
-  }
-
-  setRememberPriority(rememberPriority) {
-    this.setState({ rememberPriority });
-  }
-
-  setRequireBody(requireBody) {
-    this.setState({ requireBody });
-  }
-
-  render() {
-    const { defaultPriority, rememberPriority, requireBody } = this.state;
-
-    return (
+export default function App() {
+  return (
+    <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
@@ -47,32 +31,16 @@ export default class App extends Component {
         >
           <Tab.Screen
             name="To-Do List"
+            component={HomeScreen}
             options={{ headerShown: false, title: "To-Dos" }}
-          >
-            {(props) => (
-              <HomeScreen
-                {...props}
-                defaultPriority={defaultPriority}
-                rememberPriority={rememberPriority}
-                requireBody={requireBody}
-              />
-            )}
-          </Tab.Screen>
-          <Tab.Screen name="Account" options={{ title: "Account" }}>
-            {(props) => (
-              <AccountScreen
-                {...props}
-                defaultPriority={defaultPriority}
-                rememberPriority={rememberPriority}
-                requireBody={requireBody}
-                setDefaultPriority={this.setDefaultPriority.bind(this)}
-                setRememberPriority={this.setRememberPriority.bind(this)}
-                setRequireBody={this.setRequireBody.bind(this)}
-              />
-            )}
-          </Tab.Screen>
+          ></Tab.Screen>
+          <Tab.Screen
+            name="Account"
+            component={AccountScreen}
+            options={{ title: "Account" }}
+          ></Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
-    );
-  }
+    </Provider>
+  );
 }

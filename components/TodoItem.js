@@ -1,11 +1,15 @@
 import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch } from "react-redux";
 
+import { editTodo } from "../redux/actions";
 import styles from "../shared/styles";
 import Toggle from "./Toggle";
 
-export default function TodoItem({ todo, editTodo, navigation }) {
+export default function TodoItem({ todo, navigation }) {
+  const dispatch = useDispatch();
+
   return (
     <View
       style={[
@@ -19,7 +23,10 @@ export default function TodoItem({ todo, editTodo, navigation }) {
         style={{ marginEnd: 5 }}
         isSet={!!todo.finishedAt}
         setStatus={(status) => {
-          editTodo({ ...todo, finishedAt: status ? Date.now() : null });
+          editTodo(dispatch, todo.id, {
+            ...todo,
+            finishedAt: status ? Date.now() : null,
+          });
         }}
       />
       <TouchableOpacity

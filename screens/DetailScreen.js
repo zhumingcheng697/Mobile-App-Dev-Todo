@@ -1,127 +1,96 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, SafeAreaView } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { dateToString } from "../shared/util";
+import { editTodo, removeTodo } from "../redux/actions";
 import Selector from "../components/Selector";
 import Button from "../components/Button";
 import styles from "../shared/styles";
 
-export default class DetailScreen extends Component {
-  toggleStatus() {
-    const { route } = this.props;
-    const todo = route?.params?.todo;
-
-    if (!todo) {
-      return null;
-    }
-
-    this.editTodo({
-      ...todo,
-      finishedAt: todo.finishedAt ? null : Date.now(),
-    });
+export default function DetailScreen({ navigation, route }) {
+  if (!route) {
+    return null;
   }
 
-  updatePriority(newPriority) {
-    const { route } = this.props;
-    const todo = route?.params?.todo;
+  const todo = route?.params?.todo;
 
-    if (!todo) {
-      return null;
-    }
+  if (!todo) {
+    return null;
+  }
 
-    this.editTodo({
+  const dispatch = useDispatch();
+
+  function updatePriority(newPriority) {
+    editThisTodo({
       ...todo,
       priority: newPriority,
     });
   }
 
-  editTodo(newTodo) {
-    const { navigation, editTodo } = this.props;
-
+  function editThisTodo(newTodo) {
     navigation.setParams({ todo: newTodo });
-    editTodo(newTodo.id, newTodo);
+    editTodo(dispatch, newTodo.id, newTodo);
   }
 
-  removeTodo() {
-    const { navigation, removeTodo } = this.props;
-    const { route } = this.props;
-    const todo = route?.params?.todo;
-
-    if (!todo) {
-      return null;
-    }
-
+  function removeThisTodo() {
     navigation.navigate("To-Dos");
-    removeTodo(todo.id);
+    removeTodo(dispatch, todo.id);
   }
 
-  render() {
-    const { route } = this.props;
-
-    if (!route) {
-      return null;
-    }
-
-    const todo = route?.params?.todo;
-
-    if (!todo) {
-      return null;
-    }
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar style="dark" />
-        <View style={[styles.hMargin, styles.topMargin]}>
-          <View style={[styles.flexRow, styles.vMarginX]}>
-            {!!todo.priority && (
-              <Text style={[styles.header, { paddingEnd: 10, color: "#f90" }]}>
-                {todo.priority}
-              </Text>
-            )}
-            <Text
-              style={[
-                styles.header,
-                { flexShrink: 1, flexGrow: 1 },
-                todo.finishedAt ? styles.finishedStyle : null,
-              ]}
-            >
-              {todo.title}
-            </Text>
-          </View>
-          {!!todo.body && (
-            <Text
-              style={[
-                styles.line,
-                styles.vMarginX,
-                todo.finishedAt ? styles.finishedStyle : null,
-              ]}
-            >
-              {todo.body}
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="dark" />
+      <View style={[styles.hMargin, styles.topMargin]}>
+        <View style={[styles.flexRow, styles.vMarginX]}>
+          {!!todo.priority && (
+            <Text style={[styles.header, { paddingEnd: 10, color: "#f90" }]}>
+              {todo.priority}
             </Text>
           )}
-          <Text style={[styles.line, styles.vMarginX]}>
-            Added at {dateToString(new Date(todo.createdAt))}
+          <Text
+            style={[
+              styles.header,
+              { flexShrink: 1, flexGrow: 1 },
+              todo.finishedAt ? styles.finishedStyle : null,
+            ]}
+          >
+            {todo.title}
           </Text>
-          <Text style={[styles.line, styles.vMarginX]}>
-            {todo.finishedAt
-              ? `Finished at ${dateToString(new Date(todo.finishedAt))}`
-              : "Pending"}
-          </Text>
-          <Selector
-            style={styles.vMarginX}
-            options={["!!!", "!!", "!"]}
-            value={todo.priority}
-            setValue={this.updatePriority.bind(this)}
-          />
-          <Button
-            style={styles.topMarginX}
-            title="Delete"
-            destructive
-            onPress={this.removeTodo.bind(this)}
-          />
         </View>
-      </SafeAreaView>
-    );
-  }
+        {!!todo.body && (
+          <Text
+            style={[
+              styles.line,
+              styles.vMarginX,
+              todo.finishedAt ? styles.finishedStyle : null,
+            ]}
+          >
+            {todo.body}
+          </Text>
+        )}
+        <Text style={[styles.line, styles.vMarginX]}>
+          Added at {dateToString(new Date(todo.createdAt))}
+        </Text>
+        <Text style={[styles.line, styles.vMarginX]}>
+          {todo.finishedAt
+            ? `Finished at ${dateToString(new Date(todo.finishedAt))}`
+            : "Pending"}
+        </Text>
+        <Selector
+          style={styles.vMarginX}
+          options={["!!!", "!!", "!"]}
+          value={todo.priority}
+          setValue={updatePriority}
+        />
+        <Button
+          style={styles.topMarginX}
+          title="Delete"
+          destructive
+          onPress={removeThisTodo}
+        />
+      </View>
+    </SafeAreaView>
+  );
 }
