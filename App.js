@@ -7,6 +7,15 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import reducer from "./redux/reducers";
+import {
+  restoreTodos,
+  updateUsername,
+  updateEmail,
+  updateNumber,
+  setDefaultPriority,
+  setRememberPriority,
+  setRequireBody,
+} from "./redux/actions";
 import HomeScreen from "./screens/HomeScreen";
 import AccountScreen from "./screens/AccountScreen";
 
@@ -18,12 +27,35 @@ export default class App extends Component {
 
   unsubsriceRedux = () => {};
 
-  reduxListener() {
+  async loadStorage() {
+    const allKeys = await AsyncStorage.getAllKeys();
+
+    const actionMap = {
+      todos: restoreTodos,
+      username: updateUsername,
+      email: updateEmail,
+      number: updateNumber,
+      defaultPriority: setDefaultPriority,
+      rememberPriority: setRememberPriority,
+      requireBody: setRequireBody,
+    };
+
+    for (let key of allKeys) {
+      const value = JSON.parse(await AsyncStorage.getItem(key));
+      const action = actionMap[key];
+      action(store.dispatch)(value);
+    }
+  }
+
+  async reduxListener() {
     const state = store.getState();
 
     for (let key in state) {
       if (state[key] !== this.pState[key]) {
-        AsyncStorage.setItem(key, JSON.stringify(state[key]));
+        const storedValue = JSON.parse(await AsyncStorage.getItem(key));
+        if (state[key] !== storedValue) {
+          AsyncStorage.setItem(key, JSON.stringify(state[key]));
+        }
       }
     }
 
@@ -31,6 +63,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.loadStorage();
     this.unsubsriceRedux = store.subscribe(this.reduxListener.bind(this));
   }
 

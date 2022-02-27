@@ -14,6 +14,10 @@ const clearTodos = (dispatch) => () => {
   dispatch({ type: "clearTodos" });
 };
 
+const restoreTodos = (dispatch) => (todos) => {
+  dispatch({ type: "restoreTodos", payload: { todos } });
+};
+
 const updateUsername = (dispatch) => (value) => {
   dispatch({ type: "updateUsername", payload: value });
 };
@@ -41,6 +45,7 @@ export {
   editTodo,
   removeTodo,
   clearTodos,
+  restoreTodos,
   updateUsername,
   updateEmail,
   updateNumber,

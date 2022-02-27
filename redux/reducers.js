@@ -30,6 +30,9 @@ const todosReducer = (state = [], action) => {
     clearTodos() {
       return [];
     },
+    restoreTodos() {
+      return [...state, ...action.payload.todos];
+    },
   };
 
   if (!(action.type in actionMap)) return state;
