@@ -21,7 +21,9 @@ export default function HomeScreen() {
         name="To-Do Detail"
         component={DetailScreen}
         options={({ route }) => ({
-          title: route?.params?.todo?.title ?? "To-Do Detail",
+          title:
+            todos.find((e) => e.id === route?.params?.id)?.title ??
+            "To-Do Detail",
           headerRight: () => {
             const id = route?.params?.id;
             const todo = todos.find((e) => e.id === id);
