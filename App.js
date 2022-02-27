@@ -41,6 +41,7 @@ export default class App extends Component {
     };
 
     for (let key of allKeys) {
+      if (!Object.keys(actionMap).includes(key)) continue;
       const value = JSON.parse(await AsyncStorage.getItem(key));
       const action = actionMap[key];
       action(store.dispatch)(value);

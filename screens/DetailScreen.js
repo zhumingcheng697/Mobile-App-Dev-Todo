@@ -10,6 +10,8 @@ import Button from "../components/Button";
 import styles from "../shared/styles";
 
 export default function DetailScreen({ navigation, route }) {
+  const dispatch = useDispatch();
+
   if (!route) {
     return null;
   }
@@ -19,8 +21,6 @@ export default function DetailScreen({ navigation, route }) {
   if (!todo) {
     return null;
   }
-
-  const dispatch = useDispatch();
 
   function updatePriority(newPriority) {
     editThisTodo({
