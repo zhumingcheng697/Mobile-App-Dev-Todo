@@ -37,6 +37,28 @@ const todosReducer = (state = [], action) => {
   return actionMap[action.type]();
 };
 
+const usernameReducer = (state = "", action) => {
+  if (action.type === "updateUsername") {
+    return action.payload;
+  }
+
+  return state;
+};
+const emailReducer = (state = "", action) => {
+  if (action.type === "updateEmail") {
+    return action.payload;
+  }
+
+  return state;
+};
+const numberReducer = (state = "", action) => {
+  if (action.type === "updateNumber") {
+    return action.payload;
+  }
+
+  return state;
+};
+
 const defaultPriorityReducer = (state = null, action) => {
   if (action.type === "setDefaultPriority") {
     return action.payload;
@@ -61,6 +83,9 @@ const requireBodyReducer = (state = false, action) => {
 
 export default combineReducers({
   todos: todosReducer,
+  username: usernameReducer,
+  email: emailReducer,
+  number: numberReducer,
   defaultPriority: defaultPriorityReducer,
   rememberPriority: rememberPriorityReducer,
   requireBody: requireBodyReducer,

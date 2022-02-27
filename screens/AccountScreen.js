@@ -1,10 +1,12 @@
 import * as React from "react";
-import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, TextInput, View, SafeAreaView, Switch } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
+  updateUsername,
+  updateEmail,
+  updateNumber,
   setDefaultPriority,
   setRememberPriority,
   setRequireBody,
@@ -15,9 +17,9 @@ import Selector from "../components/Selector";
 export default function AccountScreen() {
   const dispatch = useDispatch();
 
-  const [username, updateUsername] = useState("");
-  const [email, updateEmail] = useState("");
-  const [number, updateNumber] = useState("");
+  const username = useSelector((state) => state.username);
+  const email = useSelector((state) => state.email);
+  const number = useSelector((state) => state.number);
 
   const defaultPriority = useSelector((state) => state.defaultPriority);
   const rememberPriority = useSelector((state) => state.rememberPriority);
@@ -32,21 +34,21 @@ export default function AccountScreen() {
           style={[styles.input, styles.vMargin]}
           value={username}
           keyboardType={"ascii-capable"}
-          onChangeText={updateUsername}
+          onChangeText={updateUsername(dispatch)}
         />
         <Text style={[styles.topMargin, styles.line]}>Email:</Text>
         <TextInput
           style={[styles.input, styles.vMargin]}
           value={email}
           keyboardType={"email-address"}
-          onChangeText={updateEmail}
+          onChangeText={updateEmail(dispatch)}
         />
         <Text style={[styles.topMargin, styles.line]}>Number:</Text>
         <TextInput
           style={[styles.input, styles.vMargin]}
           value={number}
           keyboardType={"phone-pad"}
-          onChangeText={updateNumber}
+          onChangeText={updateNumber(dispatch)}
         />
         <Text style={[styles.topMargin, styles.line]}>
           Default To-Do Priority:
