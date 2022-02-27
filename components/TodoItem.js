@@ -30,7 +30,7 @@ export default function TodoItem({ todo, navigation }) {
         }}
       />
       <TouchableOpacity
-        onPress={() => navigation.navigate("To-Do Detail", { todo })}
+        onPress={() => navigation.navigate("To-Do Detail", { id: todo.id })}
         style={[
           styles.vMargin,
           styles.flexRow,

@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, TextInput, View, SafeAreaView, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";

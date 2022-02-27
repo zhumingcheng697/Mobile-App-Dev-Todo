@@ -1,7 +1,7 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, SafeAreaView } from "react-native";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { dateToString } from "../shared/util";
 import { editTodo, removeTodo } from "../redux/actions";
@@ -10,33 +10,45 @@ import Button from "../components/Button";
 import styles from "../shared/styles";
 
 export default function DetailScreen({ navigation, route }) {
+  let shouldDelete = false;
   const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    return () => {
+      if (shouldDelete) {
+        if (!route) {
+          return null;
+        }
+
+        const id = route?.params?.id;
+
+        removeTodo(dispatch)(id);
+      }
+    };
+  });
 
   if (!route) {
     return null;
   }
 
-  const todo = route?.params?.todo;
+  const id = route?.params?.id;
+  const todo = todos.find((e) => e.id === id);
 
   if (!todo) {
     return null;
   }
 
   function updatePriority(newPriority) {
-    editThisTodo({
+    editTodo(dispatch)(id, {
       ...todo,
       priority: newPriority,
     });
   }
 
-  function editThisTodo(newTodo) {
-    navigation.setParams({ todo: newTodo });
-    editTodo(dispatch)(newTodo.id, newTodo);
-  }
-
   function removeThisTodo() {
     navigation.navigate("To-Dos");
-    removeTodo(dispatch)(todo.id);
+    shouldDelete = true;
   }
 
   return (
