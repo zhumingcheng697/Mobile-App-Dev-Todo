@@ -37,7 +37,7 @@ export default function HomeScreen() {
                       ...todo,
                       finishedAt: status ? Date.now() : null,
                     };
-                    editTodo(dispatch, todo.id, newTodo);
+                    editTodo(dispatch)(todo.id, newTodo);
                     navigation.setParams({ todo: newTodo });
                   }}
                 />

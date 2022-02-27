@@ -55,7 +55,7 @@ export default function AccountScreen() {
           style={styles.vMargin}
           options={["!!!", "!!", "!"]}
           value={defaultPriority}
-          setValue={(value) => setDefaultPriority(dispatch, value)}
+          setValue={setDefaultPriority(dispatch)}
         />
         <View
           style={[
@@ -67,7 +67,7 @@ export default function AccountScreen() {
           <Text style={styles.line}>Remember Last To-Do Priority</Text>
           <Switch
             value={rememberPriority}
-            onValueChange={(value) => setRememberPriority(dispatch, value)}
+            onValueChange={setRememberPriority(dispatch)}
           />
         </View>
         <View
@@ -80,7 +80,7 @@ export default function AccountScreen() {
           <Text style={styles.line}>Require To-Do Body</Text>
           <Switch
             value={requireBody}
-            onValueChange={(value) => setRequireBody(dispatch, value)}
+            onValueChange={setRequireBody(dispatch)}
           />
         </View>
       </View>

@@ -31,12 +31,12 @@ export default function DetailScreen({ navigation, route }) {
 
   function editThisTodo(newTodo) {
     navigation.setParams({ todo: newTodo });
-    editTodo(dispatch, newTodo.id, newTodo);
+    editTodo(dispatch)(newTodo.id, newTodo);
   }
 
   function removeThisTodo() {
     navigation.navigate("To-Dos");
-    removeTodo(dispatch, todo.id);
+    removeTodo(dispatch)(todo.id);
   }
 
   return (

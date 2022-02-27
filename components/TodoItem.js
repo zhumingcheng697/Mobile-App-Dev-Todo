@@ -23,7 +23,7 @@ export default function TodoItem({ todo, navigation }) {
         style={{ marginEnd: 5 }}
         isSet={!!todo.finishedAt}
         setStatus={(status) => {
-          editTodo(dispatch, todo.id, {
+          editTodo(dispatch)(todo.id, {
             ...todo,
             finishedAt: status ? Date.now() : null,
           });

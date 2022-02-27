@@ -36,7 +36,7 @@ export default function TodoScreen({ navigation }) {
       finishedAt: null,
     };
 
-    addTodo(dispatch, todo);
+    addTodo(dispatch)(todo);
 
     return true;
   }
@@ -93,7 +93,7 @@ export default function TodoScreen({ navigation }) {
           title="Clear"
           destructive
           disabled={!todos.length}
-          onPress={() => clearTodos(dispatch)}
+          onPress={clearTodos(dispatch)}
         />
         {!!todos.length && (
           <View
