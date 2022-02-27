@@ -44,6 +44,7 @@ const usernameReducer = (state = "", action) => {
 
   return state;
 };
+
 const emailReducer = (state = "", action) => {
   if (action.type === "updateEmail") {
     return action.payload;
@@ -51,6 +52,7 @@ const emailReducer = (state = "", action) => {
 
   return state;
 };
+
 const numberReducer = (state = "", action) => {
   if (action.type === "updateNumber") {
     return action.payload;
