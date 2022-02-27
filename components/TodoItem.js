@@ -2,13 +2,15 @@ import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import { editTodo } from "../redux/actions";
 import styles from "../shared/styles";
 import Toggle from "./Toggle";
 
-export default function TodoItem({ todo, navigation }) {
+export default function TodoItem({ todo }) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   return (
     <View

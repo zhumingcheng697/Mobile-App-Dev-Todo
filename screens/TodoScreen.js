@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, TextInput, View, SafeAreaView, ScrollView } from "react-native";
+import { Text, TextInput, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import { randomNumber } from "../shared/util";
 import { addTodo, clearTodos } from "../redux/actions";
+import TodoList from "../container/TodoList";
 import Selector from "../components/Selector";
-import TodoItem from "../components/TodoItem";
 import Button from "../components/Button";
 import styles from "../shared/styles";
 
-export default function TodoScreen({ navigation }) {
+export default function TodoScreen() {
   const todos = useSelector((state) => state.todos);
 
   const defaultPriority = useSelector((state) => state.defaultPriority);
@@ -106,13 +106,7 @@ export default function TodoScreen({ navigation }) {
           ></View>
         )}
       </View>
-      <ScrollView>
-        <View style={styles.bottomMarginX}>
-          {todos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} navigation={navigation} />
-          ))}
-        </View>
-      </ScrollView>
+      <TodoList />
     </SafeAreaView>
   );
 }
