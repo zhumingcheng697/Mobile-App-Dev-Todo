@@ -29,7 +29,7 @@ export default function DetailScreen() {
         removeTodo(dispatch)(id);
       }
     };
-  });
+  }, []);
 
   if (!route) {
     return null;
